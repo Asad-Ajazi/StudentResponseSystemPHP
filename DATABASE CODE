@@ -1,0 +1,85 @@
+CREATE TABLE zUser (
+userid int not null auto_increment primary key,
+username varchar(50),
+password varchar(50),
+email varchar(100),
+role varchar(20)
+);
+
+CREATE TABLE zThread (
+threadid int not null auto_increment primary key,
+subject varchar(255),
+threadtime DATETIME NOT NULL,
+userid int,
+CONSTRAINT fk_thread FOREIGN KEY (userid) REFERENCES zUser(userid)
+)
+
+CREATE TABLE zPost (
+postid int not null auto_increment primary key,
+postbody varchar(500),
+postdate DATETIME NOT NULL,
+userid int,
+threadid int,
+CONSTRAINT fk_userpost FOREIGN KEY (userid) REFERENCES zUser(userid),
+CONSTRAINT fk_post FOREIGN KEY (threadid) REFERENCES zThread(threadid) ON DELETE CASCADE
+)
+
+CREATE TABLE zTeacher(
+teacherid int not null auto_increment primary key,
+username varchar(50),
+password varchar(50),
+email varchar(100),
+role varchar(20)
+)
+
+CREATE TABLE zPrivateMessage(
+privatemessageid int not null auto_increment primary key,
+privatemessage varchar(255),
+userid int,
+teacherid int,
+CONSTRAINT fk_usermsg FOREIGN KEY (userid) REFERENCES zUser(userid),
+CONSTRAINT fk_teachermsg FOREIGN KEY (teacherid) REFERENCES zTeacher(teacherid)
+)
+
+CREATE TABLE zPoll(
+pollid int not null auto_increment primary key,
+question varchar(255),
+teacherid int,
+CONSTRAINT fk_teacherpoll FOREIGN KEY (teacherid) REFERENCES zTeacher(teacherid)
+)
+
+CREATE TABLE zOption(
+optionid int not null auto_increment primary key,
+optionname varchar(255),
+pollid int,
+CONSTRAINT fk_polloption FOREIGN KEY (pollid) REFERENCES zPoll(pollid) ON DELETE CASCADE
+)
+
+
+
+
+
+CREATE TABLE zAnswer(
+answerid int not null auto_increment primary key,
+userid int,
+pollid int,
+optionid int,
+CONSTRAINT fk_useranswer FOREIGN KEY (userid) REFERENCES zUser(userid),
+CONSTRAINT fk_pollanswer FOREIGN KEY (pollid) REFERENCES zPoll(pollid) ON DELETE CASCADE,
+CONSTRAINT fk_optionanswer FOREIGN KEY (optionid) REFERENCES zOption(optionid) ON DELETE CASCADE
+)
+
+==teacher details==
+teacher
+teacher@teacher.com
+pass=teacher
+
+t
+t@t.com
+pass = t
+
+
+==student details====
+asad
+a@a.com
+a
