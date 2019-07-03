@@ -7,5 +7,4 @@ Direct annoymous messaging.
 A separate student forum was also implemented to be used outside of classes for discussions.
 Is made responsive using bootstrap3.
 
-A similar version was first written in c# using asp.net web forms.
 Database information has been omitted.
